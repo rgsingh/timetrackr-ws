@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="TimeTrackrService" targetNamespace="http://timetrackr.rgsinfotech.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://timetrackr.rgsinfotech.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://timetrackr.rgsinfotech.com/" schemaLocation="ClientService_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="ClientNotFoundException">
+    <wsdl:part name="ClientNotFoundException" element="tns:ClientNotFound">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getClientsByName">
+    <wsdl:part name="parameters" element="tns:getClientsByName">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getClientsByNameResponse">
+    <wsdl:part name="parameters" element="tns:getClientsByNameResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ClientService">
+    <wsdl:operation name="getClientsByName">
+      <wsdl:input name="getClientsByName" message="tns:getClientsByName">
+    </wsdl:input>
+      <wsdl:output name="getClientsByNameResponse" message="tns:getClientsByNameResponse">
+    </wsdl:output>
+      <wsdl:fault name="ClientNotFoundException" message="tns:ClientNotFoundException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ClientServiceServiceSoapBinding" type="tns:ClientService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getClientsByName">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getClientsByName">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getClientsByNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ClientNotFoundException">
+        <soap:fault name="ClientNotFoundException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TimeTrackrService">
+    <wsdl:port name="ClientServicePort" binding="tns:ClientServiceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ClientServicePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
